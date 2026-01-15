@@ -9,7 +9,7 @@ import steakhouseImg from './assets/steakhouse.png';
 import creperieImg from './assets/creperie.png';
 import barImg from './assets/bar.png';
 
-// Importazione Logo e Hero (Assicurati che i nomi file siano corretti in assets)
+// Importazione Logo e Hero
 import logoImg from './assets/logo.jpg'; 
 import heroBg from './assets/hero.png'; 
 
@@ -32,84 +32,90 @@ function App() {
     if (username === 'admin' && password === '1234') {
       setIsLoggedIn(true);
     } else {
-      alert("Credenziali errate!");
+      alert(lang === 'it' ? "Credenziali errate!" : "Invalid credentials!");
     }
   };
 
   const ui = {
-    it: { title: "Menu Digitali", subtitle: "Gestione Ristoranti", btn: "Apri Menu", scan: "Scannerizza QR" },
-    en: { title: "Digital Menus", subtitle: "Management", btn: "Open Menu", scan: "Scan QR" }
+    it: { 
+      welcome: "Benvenuto", 
+      instruction: "Accesso Amministratore",
+      loginBtn: "ACCEDI",
+      title: "Menu Digitali", 
+      subtitle: "Gestione Ristoranti", 
+      btn: "Apri Menu", 
+      scan: "Scannerizza QR",
+      logout: "Esci"
+    },
+    en: { 
+      welcome: "Welcome", 
+      instruction: "Admin Access",
+      loginBtn: "LOGIN",
+      title: "Digital Menus", 
+      subtitle: "Management", 
+      btn: "Open Menu", 
+      scan: "Scan QR",
+      logout: "Logout"
+    }
   };
 
-  // 1. SCHERMATA DI LOGIN (FIX BORDINI NERI)
+  // 1. SCHERMATA DI LOGIN CON SELETTORE LINGUA
   if (!isLoggedIn) {
     return (
       <div style={{
-        height: '100dvh', 
-        width: '100%',
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center',
+        height: '100dvh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
         backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        fontFamily: '"Inter", sans-serif',
-        margin: 0,
-        padding: 0
+        backgroundSize: 'cover', backgroundPosition: 'center', position: 'fixed', top: 0, left: 0,
+        fontFamily: '"Inter", sans-serif'
       }}>
         <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.96)', 
-          padding: '40px 25px', 
-          borderRadius: '30px',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.5)', 
-          textAlign: 'center', 
-          maxWidth: '360px', 
-          width: '90%',
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center'
+          backgroundColor: 'rgba(255, 255, 255, 0.96)', padding: '30px', borderRadius: '30px',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)', textAlign: 'center', maxWidth: '360px', width: '90%',
+          display: 'flex', flexDirection: 'column', alignItems: 'center'
         }}>
-          {/* Logo circolare */}
+          
+          {/* SELETTORE LINGUA NEL LOGIN */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+            <button onClick={() => setLang('it')} style={btnLangStyle(lang === 'it')}>IT</button>
+            <button onClick={() => setLang('en')} style={btnLangStyle(lang === 'en')}>EN</button>
+          </div>
+
           <div style={{
-            width: '110px', height: '110px', borderRadius: '50%', backgroundColor: 'white',
+            width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'white',
             display: 'flex', justifyContent: 'center', alignItems: 'center',
-            border: '4px solid #3b82f6', marginBottom: '20px', overflow: 'hidden'
+            border: '4px solid #3b82f6', marginBottom: '15px', overflow: 'hidden'
           }}>
             <img src={logoImg} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
 
-          <h2 style={{ color: '#0f172a', margin: '0 0 10px 0', fontWeight: '800' }}>Benvenuto</h2>
+          <h2 style={{ color: '#0f172a', margin: '0 0 5px 0', fontWeight: '800' }}>{ui[lang].welcome}</h2>
+          <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '25px' }}>{ui[lang].instruction}</p>
           
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
             <input 
               type="text" placeholder="Username" 
               onChange={(e) => setUsername(e.target.value)}
-              style={{ padding: '15px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none' }}
+              style={{ padding: '14px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none' }}
             />
             <input 
               type="password" placeholder="Password" 
               onChange={(e) => setPassword(e.target.value)}
-              style={{ padding: '15px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none' }}
+              style={{ padding: '14px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none' }}
             />
             <button type="submit" style={{
-              padding: '15px', borderRadius: '12px', border: 'none', backgroundColor: '#3b82f6',
+              padding: '14px', borderRadius: '12px', border: 'none', backgroundColor: '#3b82f6',
               color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem'
-            }}>ACCEDI</button>
+            }}>{ui[lang].loginBtn}</button>
           </form>
         </div>
       </div>
     );
   }
 
-  // 2. DASHBOARD (QUESTA PARTE ERA SPARITA!)
+  // 2. DASHBOARD INTERNA
   return (
     <div style={{ padding: '20px', fontFamily: '"Inter", sans-serif', backgroundColor: '#f1f5f9', minHeight: '100vh' }}>
       
-      {/* Header interno */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1200px', margin: '0 auto 30px' }}>
         <img src={logoImg} alt="logo" style={{ height: '45px', borderRadius: '5px' }} />
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -118,7 +124,7 @@ function App() {
           <button onClick={() => setIsLoggedIn(false)} style={{
             padding: '8px 15px', borderRadius: '10px', border: '1px solid #ef4444', color: '#ef4444', 
             backgroundColor: 'white', cursor: 'pointer', fontWeight: 'bold'
-          }}>Esci</button>
+          }}>{ui[lang].logout}</button>
         </div>
       </div>
 
@@ -127,10 +133,8 @@ function App() {
         <p style={{ color: '#64748b' }}>{ui[lang].subtitle}</p>
       </header>
 
-      {/* Griglia Ristoranti */}
       <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
         gap: '30px', maxWidth: '1200px', margin: '0 auto' 
       }}>
         {menuData.specialties.map(item => {
@@ -160,11 +164,10 @@ function App() {
   );
 }
 
-// Stili extra
 const btnLangStyle = (active) => ({
-  padding: '8px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer',
+  padding: '6px 12px', borderRadius: '8px', border: 'none', cursor: 'pointer',
   backgroundColor: active ? '#0f172a' : '#ffffff', color: active ? 'white' : '#64748b',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)', fontWeight: '700'
+  boxShadow: '0 2px 4px rgba(0,0,0,0.1)', fontWeight: '700', fontSize: '0.8rem'
 });
 
 const cardStyle = {
