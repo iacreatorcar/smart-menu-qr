@@ -64,7 +64,7 @@ function App() {
     );
   }
 
-  // 2. DASHBOARD INTERNA (FOTO ABBASSATE E RIMPICCIOLITE)
+  // 2. DASHBOARD INTERNA
   return (
     <div style={{ padding: '20px', fontFamily: '"Inter", sans-serif', backgroundColor: '#f1f5f9', minHeight: '100vh' }}>
       <div style={headerNavStyle}>
@@ -89,14 +89,18 @@ function App() {
               <div style={{ padding: '20px', textAlign: 'center' }}>
                 <h3 style={{ margin: '0 0 15px 0', fontSize: '1.2rem' }}>{item.label}</h3>
                 
-                {/* QR CODE AL CENTRO */}
                 <div style={{ background: '#f8fafc', padding: '10px', borderRadius: '15px', display: 'inline-block', marginBottom: '15px' }}>
                   <QRCodeCanvas value={pdfUrl} size={110} />
                 </div>
                 
-                {/* FOTO RIMPICCIOLITA E MESSA IN BASSO */}
+                {/* FOTO CON LAZY LOADING INSERITO */}
                 <div style={{ height: '100px', borderRadius: '12px', overflow: 'hidden', marginBottom: '15px' }}>
-                  <img src={imageMap[item.imgName]} alt={item.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img 
+                    src={imageMap[item.imgName]} 
+                    alt={item.label} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    loading="lazy" 
+                  />
                 </div>
 
                 <a href={pdfUrl} target="_blank" rel="noreferrer" style={linkBtnStyle}>{ui[lang].btn}</a>
@@ -110,7 +114,7 @@ function App() {
   );
 }
 
-// STILI OGGETTI (Per pulizia)
+// STILI
 const loginBgStyle = (img) => ({
   height: '100dvh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
   backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${img})`,
@@ -129,24 +133,17 @@ const logoCircleStyle = {
   border: '4px solid #3b82f6', marginBottom: '15px', overflow: 'hidden'
 };
 
-const inputStyle = { padding: '14px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none' };
-
+const inputStyle = { padding: '14px', borderRadius: '12px', border: '1px solid #cbd5e1', outline: 'none', width: '100%', boxSizing: 'border-box' };
 const loginBtnStyle = { padding: '14px', borderRadius: '12px', border: 'none', backgroundColor: '#3b82f6', color: 'white', fontWeight: 'bold', cursor: 'pointer' };
-
 const headerNavStyle = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1200px', margin: '0 auto 30px' };
-
 const logoutBtnStyle = { padding: '8px 12px', borderRadius: '8px', border: '1px solid #ef4444', color: '#ef4444', backgroundColor: 'white', cursor: 'pointer', fontWeight: 'bold' };
-
 const btnLangStyle = (active) => ({
   padding: '6px 12px', borderRadius: '8px', border: 'none', cursor: 'pointer',
   backgroundColor: active ? '#0f172a' : '#ffffff', color: active ? 'white' : '#64748b',
   boxShadow: '0 2px 4px rgba(0,0,0,0.1)', fontWeight: '700', fontSize: '0.8rem'
 });
-
 const gridStyle = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px', maxWidth: '1200px', margin: '0 auto' };
-
 const cardStyle = { backgroundColor: '#ffffff', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 10px 25px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' };
-
 const linkBtnStyle = { display: 'block', padding: '12px', backgroundColor: '#0f172a', color: 'white', textDecoration: 'none', borderRadius: '10px', fontWeight: '600' };
 
 export default App;
