@@ -20,15 +20,26 @@ const imageMap = {
 function App() {
   const [lang, setLang] = useState('it');
 
+  // Testi dell'interfaccia bilingue
   const ui = {
-    it: { title: "Menu Digitali", subtitle: "Seleziona un ristorante per visualizzare il menu", btn: "Sfoglia Menu", scan: "Inquadra il QR Code" },
-    en: { title: "Digital Menus", subtitle: "Select a restaurant to view the menu", btn: "View Menu", scan: "Scan QR Code" }
+    it: { 
+      title: "Menu Digitali", 
+      subtitle: "Seleziona un ristorante per visualizzare il menu", 
+      btn: "Sfoglia Menu", 
+      scan: "Inquadra il QR Code" 
+    },
+    en: { 
+      title: "Digital Menus", 
+      subtitle: "Select a restaurant to view the menu", 
+      btn: "View Menu", 
+      scan: "Scan QR Code" 
+    }
   };
 
   return (
     <div style={{ padding: '20px', fontFamily: '"Inter", sans-serif', backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       
-      {/* SELETTORE LINGUA */}
+      {/* SELETTORE LINGUA IN ALTO A DESTRA */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', maxWidth: '1400px', margin: '0 auto 20px' }}>
         <button 
           onClick={() => setLang('it')}
@@ -49,24 +60,35 @@ function App() {
       </div>
 
       <header style={{ marginBottom: '50px', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2.5rem', color: '#0f172a', fontWeight: '800', letterSpacing: '-0.02em' }}>{ui[lang].title}</h1>
+        <h1 style={{ fontSize: '2.5rem', color: '#0f172a', fontWeight: '800', letterSpacing: '-0.02em' }}>
+          {ui[lang].title}
+        </h1>
         <p style={{ color: '#64748b', fontSize: '1.1rem' }}>{ui[lang].subtitle}</p>
       </header>
 
+      {/* GRIGLIA RISTORANTI */}
       <div style={{ 
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '30px', maxWidth: '1400px', margin: '0 auto' 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        gap: '30px', 
+        maxWidth: '1400px', 
+        margin: '0 auto' 
       }}>
         {menuData.specialties.map(item => {
-          // RIGA CORRETTA CON I BACKTICK
-          const pdfUrl = `/menus/${item.file}`; 
+          // Genera l'URL assoluto per far funzionare correttamente il QR Code
+          const pdfUrl = `${window.location.origin}/menus/${item.file}`; 
           
           return (
             <div key={item.id} style={{
-              backgroundColor: '#ffffff', borderRadius: '24px', overflow: 'hidden',
-              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)', border: '1px solid #e2e8f0',
+              backgroundColor: '#ffffff', 
+              borderRadius: '24px', 
+              overflow: 'hidden',
+              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)', 
+              border: '1px solid #e2e8f0',
               transition: 'transform 0.3s ease'
             }}>
+              
+              {/* FOTO CON POSIZIONAMENTO PERSONALIZZATO E OMBRA */}
               <div style={{ 
                 height: '200px', 
                 position: 'relative', 
@@ -97,24 +119,37 @@ function App() {
                 }}>
                   {item[lang].cat}
                 </span>
-                <h2 style={{ margin: '8px 0 20px 0', fontSize: '1.6rem', color: '#1e293b' }}>{item.label}</h2>
+                <h2 style={{ margin: '8px 0 20px 0', fontSize: '1.6rem', color: '#1e293b' }}>
+                  {item.label}
+                </h2>
                 
+                {/* QR CODE DINAMICO */}
                 <div style={{ 
-                  padding: '15px', backgroundColor: '#f8fafc', borderRadius: '20px', 
-                  display: 'inline-block', border: '1px solid #f1f5f9' 
+                  padding: '15px', 
+                  backgroundColor: '#f8fafc', 
+                  borderRadius: '20px', 
+                  display: 'inline-block', 
+                  border: '1px solid #f1f5f9' 
                 }}>
                   <QRCodeCanvas value={pdfUrl} size={140} />
                 </div>
 
                 <div style={{ marginTop: '25px' }}>
                   <a href={pdfUrl} target="_blank" rel="noreferrer" style={{
-                    display: 'block', padding: '14px', backgroundColor: '#0f172a',
-                    color: 'white', textDecoration: 'none', borderRadius: '12px', 
-                    fontWeight: '600', fontSize: '1rem', transition: '0.2s'
+                    display: 'block', 
+                    padding: '14px', 
+                    backgroundColor: '#0f172a',
+                    color: 'white', 
+                    textDecoration: 'none', 
+                    borderRadius: '12px', 
+                    fontWeight: '600', 
+                    fontSize: '1rem'
                   }}>
                     {ui[lang].btn}
                   </a>
-                  <p style={{ marginTop: '12px', fontSize: '0.75rem', color: '#94a3b8' }}>{ui[lang].scan}</p>
+                  <p style={{ marginTop: '12px', fontSize: '0.75rem', color: '#94a3b8' }}>
+                    {ui[lang].scan}
+                  </p>
                 </div>
               </div>
             </div>
@@ -123,7 +158,7 @@ function App() {
       </div>
 
       <footer style={{ marginTop: '60px', textAlign: 'center', color: '#cbd5e1', fontSize: '0.8rem' }}>
-        <p>© 2026 Smart Menu QR System - All Rights Reserved</p>
+        <p>© 2026 Smart Menu QR System - Carmine D'Alise Digital Solutions</p>
       </footer>
     </div>
   );
