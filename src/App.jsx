@@ -19,7 +19,6 @@ const imageMap = {
 
 function App() {
   const [lang, setLang] = useState('it');
-  const baseUrl = window.location.origin;
 
   const ui = {
     it: { title: "Menu Digitali", subtitle: "Seleziona un ristorante per visualizzare il menu", btn: "Sfoglia Menu", scan: "Inquadra il QR Code" },
@@ -59,7 +58,8 @@ function App() {
         gap: '30px', maxWidth: '1400px', margin: '0 auto' 
       }}>
         {menuData.specialties.map(item => {
-          const pdfUrl = `${baseUrl}/menus/${item.file}`;
+          // RIGA CORRETTA CON I BACKTICK
+          const pdfUrl = `/menus/${item.file}`; 
           
           return (
             <div key={item.id} style={{
@@ -67,7 +67,6 @@ function App() {
               boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)', border: '1px solid #e2e8f0',
               transition: 'transform 0.3s ease'
             }}>
-              {/* HEADER FOTO CON OMBRA INTERNA */}
               <div style={{ 
                 height: '200px', 
                 position: 'relative', 
@@ -81,11 +80,9 @@ function App() {
                     width: '100%', 
                     height: '100%', 
                     objectFit: 'cover',
-                    // Legge 'bottom' dal JSON per inquadrare il cibo sul tavolo
                     objectPosition: item.position || 'center' 
                   }} 
                 />
-                {/* Ombra interna per profondità */}
                 <div style={{
                   position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
                   boxShadow: 'inset 0 -60px 50px -20px rgba(0,0,0,0.4)',
