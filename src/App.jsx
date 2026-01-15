@@ -76,7 +76,7 @@ function App() {
       }}>
         {menuData.specialties.map(item => {
           // Genera l'URL assoluto per far funzionare correttamente il QR Code
-          const pdfUrl = `${window.location.origin}/menus/${item.file}`; 
+           const pdfUrl = window.location.origin + `/menus/${item.file}`; 
           
           return (
             <div key={item.id} style={{
