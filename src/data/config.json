@@ -1,0 +1,49 @@
+{
+  "restaurantName": "Smart Menu QR",
+  "specialties": [
+    {
+      "id": "sakura",
+      "label": "Sakura Sushi",
+      "imgName": "sakura",
+      "file": "sakura-menu.pdf",
+      "it": { "cat": "Specialità Giapponese" },
+      "en": { "cat": "Japanese Specialty" }
+    },
+    {
+      "id": "zenith",
+      "label": "Zenith Restaurant",
+      "imgName": "zenith",
+      "file": "zenith_menu.pdf",
+      "position": "bottom",
+      "it": { "cat": "Cucina Internazionale" },
+      "en": { "cat": "International Cuisine" }
+    },
+    {
+      "id": "creperie",
+      "label": "Creperie",
+      "imgName": "creperie",
+      "file": "creperie_menu.pdf",
+      "position": "bottom",
+      "it": { "cat": "Specialità Francesi" },
+      "en": { "cat": "French Specialty" }
+    },
+    {
+      "id": "steakhouse",
+      "label": "Steakhouse",
+      "imgName": "steakhouse",
+      "file": "steakhouse.pdf",
+      "position": "bottom",
+      "it": { "cat": "Griglieria & Carne" },
+      "en": { "cat": "Grill & Meat" }
+    },
+    {
+      "id": "bar",
+      "label": "Lounge Bar",
+      "imgName": "bar",
+      "file": "bar_menu.pdf",
+      "position": "bottom",
+      "it": { "cat": "Drink & Cocktail" },
+      "en": { "cat": "Drinks & Cocktails" }
+    }
+  ]
+}
